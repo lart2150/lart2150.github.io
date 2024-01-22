@@ -1,15 +1,15 @@
 <html>
 <body>
 <p>dial *#9900# on a samsung phone. Tap something like Silet log. Enter the OTP key below. You likely want to use the key with 0 minutes offset.</p>
-<input type="text" id="input"/>
+<label>OTP Key <input placeholder="xyz12" type="text" id="input"/></label>
 <pre id="message"></pre>
 
 <script>
 const CheckOTP = (key) => {
     var output = '';
     for (var i = -1; i < 6; i++) {
-        console.log(`Minute Ofsset: ${i}`);
-        output += `Minute ofsset: ${i}\n`;
+        console.log(`Minute offset: ${i}`);
+        output += `Minute offset: ${i}\n`;
         const hash = MakeHashCode(key + GetDateString(i));
         console.log(`Key: ${hash}`)
         output += `Key: ${hash}\n\n`;
