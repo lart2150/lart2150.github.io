@@ -1,0 +1,55 @@
+<html>
+<body>
+<p>dial *#9900# on a samsung phone. Tap something like Silet log. Enter the OTP key below. You likely want to use the key with 0 minutes offset.</p>
+<input type="text" id="input"/>
+<pre id="message"></pre>
+
+<script>
+const CheckOTP = (key) => {
+    var output = '';
+    for (var i = -1; i < 6; i++) {
+        console.log(`Minute Ofsset: ${i}`);
+        output += `Minute ofsset: ${i}\n`;
+        const hash = MakeHashCode(key + GetDateString(i));
+        console.log(`Key: ${hash}`)
+        output += `Key: ${hash}\n\n`;
+    }
+    document.querySelector('#message').innerText = output;
+}
+
+const GetDateString = (fudge) => {
+    const date = new Date(Date.now() - (fudge * 60000));
+
+    const dateString = String(date.getUTCFullYear()-2000).padStart(2,'0')
+    + String(date.getUTCMonth()+1).padStart(2,'0')
+    + String(date.getUTCMinutes()).padStart(2,'0')
+    + String(date.getUTCDate()).padStart(2,'0')
+    + String(date.getUTCHours()).padStart(2,'0');
+    return dateString;
+}
+
+
+const MakeHashCode = (arg) => {
+    console.log('arg', arg);
+    var nHashValue = 0;
+    for(const a of arg) {
+        nHashValue = (nHashValue << 5) + nHashValue + a.charCodeAt(0);
+        if (nHashValue > 2147483647) {
+            nHashValue = nHashValue >> 32
+        }
+        console.log(nHashValue);
+    }
+    return Math.abs(nHashValue)
+}
+
+const input = document.querySelector('#input');
+
+input.addEventListener('change', (e) => {
+    CheckOTP(e.target.value);
+})
+input.addEventListener('keyup', (e) => {
+    CheckOTP(e.target.value);
+})
+</script>
+</body>
+</html>
