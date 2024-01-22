@@ -1,6 +1,6 @@
 <html>
 <body>
-<p>dial *#9900# on a samsung phone. Tap something like Silet log. Enter the OTP key below. You likely want to use the key with 0 minutes offset.</p>
+<p>dial *#9900# on a samsung phone. Tap something like Silet log. Enter the OTP key from your phone below. You likely want to use the key with 0 or 1 minute offset.</p>
 <label>OTP Key <input placeholder="xyz12" type="text" id="input"/></label>
 <pre id="message"></pre>
 
@@ -30,14 +30,12 @@ const GetDateString = (fudge) => {
 
 
 const MakeHashCode = (arg) => {
-    console.log('arg', arg);
     var nHashValue = 0;
     for(const a of arg) {
         nHashValue = (nHashValue << 5) + nHashValue + a.charCodeAt(0);
         if (nHashValue > 2147483647) {
             nHashValue = nHashValue >> 32
         }
-        console.log(nHashValue);
     }
     return Math.abs(nHashValue)
 }
