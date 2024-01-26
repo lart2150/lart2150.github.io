@@ -7,7 +7,7 @@
 <script>
 const CheckOTP = (key) => {
     var output = '';
-    for (var i = -1; i < 6; i++) {
+    for (var i = -1; i < 3; i++) {
         console.log(`Minute offset: ${i}`);
         output += `Minute offset: ${i}\n`;
         const hash = MakeHashCode(key + GetDateString(i));
@@ -33,9 +33,7 @@ const MakeHashCode = (arg) => {
     var nHashValue = 0;
     for(const a of arg) {
         nHashValue = (nHashValue << 5) + nHashValue + a.charCodeAt(0);
-        if (nHashValue > 2147483647) {
-            nHashValue = nHashValue >> 32
-        }
+        nHashValue = nHashValue >> 32
     }
     return Math.abs(nHashValue)
 }
